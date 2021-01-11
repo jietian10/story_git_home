@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hfxt.dao.HallinformationMapper" >
+  <resultMap id="BaseResultMap" type="com.hfxt.model.Hallinformation" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="region" property="region" jdbcType="VARCHAR" />
+    <result column="announcement" property="announcement" jdbcType="VARCHAR" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime"/>
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, region, announcement
+  </sql>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from hallinformation
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from hallinformation
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from hallinformation
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.hfxt.model.Hallinformation" >
+    insert into hallinformation (id, region, announcement
+      )
+    values (#{id,jdbcType=INTEGER}, #{region,jdbcType=VARCHAR}, #{announcement,jdbcType=VARCHAR}
+      )
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.hfxt.model.Hallinformation" >
+    insert into hallinformation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="region != null" >
+        region,
+      </if>
+      <if test="announcement != null" >
+        announcement,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="region != null" >
+        #{region,jdbcType=VARCHAR},
+      </if>
+      <if test="announcement != null" >
+        #{announcement,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.hfxt.model.Hallinformation" >
+    update hallinformation
+    <set >
+      <if test="region != null" >
+        region = #{region,jdbcType=VARCHAR},
+      </if>
+      <if test="announcement != null" >
+        announcement = #{announcement,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.hfxt.model.Hallinformation" >
+    update hallinformation
+    set region = #{region,jdbcType=VARCHAR},
+      announcement = #{announcement,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+</mapper>

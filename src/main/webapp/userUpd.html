@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户修改</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.9/vue.min.js"></script>
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <form>
+            <table align="center">
+                <tr>
+                    <td>用户名：</td>
+                    <td><input type="text" v-model="user.username"/></td>
+                </tr>
+                <tr>
+                    <td>密码：</td>
+                    <td><input type="text" v-model="user.password"/></td>
+                </tr>
+                <tr>
+                    <td>昵称：</td>
+                    <td><input type="text" v-model="user.nickname"/></td>
+                </tr>
+                <tr>
+                    <td>性别：</td>
+                    <td><input type="text" v-model="user.sex"/></td>
+                </tr>
+                <tr>
+                    <td>生日：</td>
+                    <td><input type="date" v-model="user.birthday"/></td>
+                </tr>
+                <tr>
+                    <td>个性签名：</td>
+                    <td><input type="text" v-model="user.signature"/></td>
+                </tr>
+<!--                <tr>
+                    <td>头像：</td>
+                    <td><input type="text" v-model="avatar"/></td>
+                </tr>-->
+                <tr class="sbm">
+                    <td><input type="button" value="取消" @click="history.back()"/></td>
+                    <td><input type="button" value="修改" @click="sbmGet()"/></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+</html>
+<script>
+    let vue=new Vue({
+        el: '#app',
+        data:{
+            user:''
+        },
+        methods:{
+            get(){
+                let data1={id:1};
+                axios.get('/user/getUsers', {
+                    params: data1
+                })
+                .then(rs => {
+                    console.log(rs);
+                    this.$data.user=rs.data.data.users[0];
+                })
+            },
+            sbmGet(){
+                let data2=this.$data.user;
+                axios.get('/user/updUser', {
+                    params: data2
+                })
+                    .then(rs => {
+                        if (rs.data.data.rs > 0){
+                            alert("修改失败！");
+                        }else alert("修改成功！");
+                    })
+            }
+        }
+    });
+    vue.get();
+
+
+
+</script>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hall</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.9/vue.min.js"></script>
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <form id="user">
+            <!--<input type="" />-->
+        </form>
+        <table border="1">
+            <tr>
+                <th>id</th>
+                <th>用户名</th>
+                <th>密码</th>
+                <th>昵称</th>
+                <th>性别</th>
+                <th>生日</th>
+                <th>个性签名</th>
+                <th>头像</th>
+                <th>操作</th>
+            </tr>
+            <tr v-for="user in users" :key="user.id">
+                <td>{{user.id}}</td>
+                <td>{{user.username}}</td>
+                <td>{{user.password}}</td>
+                <td>{{user.nickname}}</td>
+                <td>{{user.sex}}</td>
+                <td>{{user.birthday}}</td>
+                <td>{{user.signature}}</td>
+                <td><img :src="'/user/img/'+user.avatar"/></td>
+                <td>
+                    <a href="#" @click.prevent="upd()">修改</a>
+                    <a href="#" @click.prevent="del()">删除</a>
+                </td>
+            </tr>
+        </table>
+        <div v-show="false">
+            <b>{{users}}</b>
+        </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    let vue=new Vue({
+        el: '#app',
+        data: {
+            users: '正在加载数据……'
+        },
+        methods: {
+            /*查询显示*/
+            sel(){
+                let data1={};
+                axios.get('/user/getUsers', {
+                    params: data1
+                })
+                    .then(function(rs){
+                        console.log(rs);
+                    if (rs.data.flag){
+                        vue.$data.users=rs.data.data.users;
+                    }else {
+                        vue.$data.users='没有数据！';
+                    }
+                });
+            },
+            //修改
+            upd(){
+                location.href="/userUpd.html";
+            },
+            //删除
+            del(){
+                console.log("delete");
+            }
+        }
+    });
+    vue.sel();
+</script>

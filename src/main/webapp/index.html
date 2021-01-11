@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.9/vue.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <form id="check">
+            <table>
+                <tr>
+                    <td>用户名：</td>
+                    <td><input type="text" name="username" v-model="username"/></td>
+                </tr>
+                <tr>
+                    <td>密码：</td>
+                    <td><input type="text" name="password" v-model="password"/></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><span>{{msg}}</span></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><input style="width:100%" type="button" :value="loginButton" @click="get()"/></td>
+                </tr>
+            </table>
+        </form>
+        <div>
+            <a href="/test.html">test</a>
+            <a href="/hall2.html">大厅</a>
+        </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    axios.default.baseURL = 'http://localhost:80/';
+
+    let vue=new Vue({
+        el: '#app',
+        data: {
+            loginButton: '登录',
+            msg: '',
+            username: '',
+            password: ''
+        },
+        methods: {
+            get(){
+                this.loginButton='正在登录……';
+                let data1 = {"username":vue.$data.username, "password":vue.$data.password};
+                console.log(data1);
+                axios.get('/user/checkLogin', {
+                    params: data1
+                })
+                    .then((rs) => {
+                        if (rs.data.flag){
+                            vue.$data.loginButton='验证成功，稍后进入……';
+                            location.href='/hall.html';
+                        }else {
+                            vue.$data.loginButton='登录';
+                            vue.$data.msg=rs.data.msg;
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            }
+        }
+    });
+</script>

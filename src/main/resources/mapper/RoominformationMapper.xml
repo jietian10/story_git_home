@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hfxt.dao.RoominformationMapper" >
+  <resultMap id="BaseResultMap" type="com.hfxt.model.Roominformation" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="roomid" property="roomid" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="timelimit" property="timelimit" jdbcType="INTEGER" />
+    <result column="openingtheme" property="openingtheme" jdbcType="VARCHAR" />
+    <result column="identifier" property="identifier" jdbcType="VARCHAR" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, roomid, title, timelimit, openingtheme, identifier
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from roominformation
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectAll" parameterType="com.hfxt.model.Roominformation" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from roominformation
+    <where>
+      <if test="id != null">
+        and id=#{id,jdbcType=INTEGER}
+      </if>
+      <if test="roomid != null">
+        and roomid=#{roomid,jdbcType=INTEGER}
+      </if>
+      <if test="title != null">
+        and title like concat('%',#{title,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="openingtheme != null">
+        and openingtheme like concat('%',#{openingtheme,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="identifier != null">
+        and identifier = #{identifier,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from roominformation
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.hfxt.model.Roominformation" >
+    insert into roominformation (id, roomid, title, 
+      timelimit, openingtheme, identifier
+      )
+    values (#{id,jdbcType=INTEGER}, #{roomid,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
+      #{timelimit,jdbcType=INTEGER}, #{openingtheme,jdbcType=VARCHAR}, #{identifier,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hfxt.model.Roominformation" >
+    insert into roominformation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="roomid != null" >
+        roomid,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="timelimit != null" >
+        timelimit,
+      </if>
+      <if test="openingtheme != null" >
+        openingtheme,
+      </if>
+      <if test="identifier != null" >
+        identifier,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="roomid != null" >
+        #{roomid,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="timelimit != null" >
+        #{timelimit,jdbcType=INTEGER},
+      </if>
+      <if test="openingtheme != null" >
+        #{openingtheme,jdbcType=VARCHAR},
+      </if>
+      <if test="identifier != null" >
+        #{identifier,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hfxt.model.Roominformation" >
+    update roominformation
+    <set >
+      <if test="roomid != null" >
+        roomid = #{roomid,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="timelimit != null" >
+        timelimit = #{timelimit,jdbcType=INTEGER},
+      </if>
+      <if test="openingtheme != null" >
+        openingtheme = #{openingtheme,jdbcType=VARCHAR},
+      </if>
+      <if test="identifier != null" >
+        identifier = #{identifier,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hfxt.model.Roominformation" >
+    update roominformation
+    set roomid = #{roomid,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      timelimit = #{timelimit,jdbcType=INTEGER},
+      openingtheme = #{openingtheme,jdbcType=VARCHAR},
+      identifier = #{identifier,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

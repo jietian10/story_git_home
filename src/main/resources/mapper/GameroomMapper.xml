@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hfxt.dao.GameroomMapper" >
+  <resultMap id="BaseResultMap" type="com.hfxt.model.Gameroom" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="roomid" property="roomid" jdbcType="INTEGER" />
+    <result column="roompeople" property="roompeople" jdbcType="VARCHAR" />
+    <result column="chat" property="chat" jdbcType="VARCHAR" />
+    <result column="story" property="story" jdbcType="VARCHAR" />
+    <result column="people1" property="people1" jdbcType="VARCHAR" />
+    <result column="people2" property="people2" jdbcType="VARCHAR" />
+    <result column="people3" property="people3" jdbcType="VARCHAR" />
+    <result column="people4" property="people4" jdbcType="VARCHAR" />
+    <result column="people5" property="people5" jdbcType="VARCHAR" />
+    <result column="people6" property="people6" jdbcType="VARCHAR" />
+    <result column="ready" property="ready" jdbcType="VARCHAR" />
+    <result column="ifgo" property="ifgo" jdbcType="VARCHAR" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, roomid, roompeople, chat, story, people1, people2, people3, people4, people5, 
+    people6, ready, ifgo
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from gameroom
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from gameroom
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hfxt.model.Gameroom" >
+    insert into gameroom (id, roomid, roompeople, 
+      chat, story, people1, 
+      people2, people3, people4, 
+      people5, people6, ready, 
+      ifgo)
+    values (#{id,jdbcType=INTEGER}, #{roomid,jdbcType=INTEGER}, #{roompeople,jdbcType=VARCHAR}, 
+      #{chat,jdbcType=VARCHAR}, #{story,jdbcType=VARCHAR}, #{people1,jdbcType=VARCHAR}, 
+      #{people2,jdbcType=VARCHAR}, #{people3,jdbcType=VARCHAR}, #{people4,jdbcType=VARCHAR}, 
+      #{people5,jdbcType=VARCHAR}, #{people6,jdbcType=VARCHAR}, #{ready,jdbcType=VARCHAR}, 
+      #{ifgo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hfxt.model.Gameroom" >
+    insert into gameroom
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="roomid != null" >
+        roomid,
+      </if>
+      <if test="roompeople != null" >
+        roompeople,
+      </if>
+      <if test="chat != null" >
+        chat,
+      </if>
+      <if test="story != null" >
+        story,
+      </if>
+      <if test="people1 != null" >
+        people1,
+      </if>
+      <if test="people2 != null" >
+        people2,
+      </if>
+      <if test="people3 != null" >
+        people3,
+      </if>
+      <if test="people4 != null" >
+        people4,
+      </if>
+      <if test="people5 != null" >
+        people5,
+      </if>
+      <if test="people6 != null" >
+        people6,
+      </if>
+      <if test="ready != null" >
+        ready,
+      </if>
+      <if test="ifgo != null" >
+        ifgo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="roomid != null" >
+        #{roomid,jdbcType=INTEGER},
+      </if>
+      <if test="roompeople != null" >
+        #{roompeople,jdbcType=VARCHAR},
+      </if>
+      <if test="chat != null" >
+        #{chat,jdbcType=VARCHAR},
+      </if>
+      <if test="story != null" >
+        #{story,jdbcType=VARCHAR},
+      </if>
+      <if test="people1 != null" >
+        #{people1,jdbcType=VARCHAR},
+      </if>
+      <if test="people2 != null" >
+        #{people2,jdbcType=VARCHAR},
+      </if>
+      <if test="people3 != null" >
+        #{people3,jdbcType=VARCHAR},
+      </if>
+      <if test="people4 != null" >
+        #{people4,jdbcType=VARCHAR},
+      </if>
+      <if test="people5 != null" >
+        #{people5,jdbcType=VARCHAR},
+      </if>
+      <if test="people6 != null" >
+        #{people6,jdbcType=VARCHAR},
+      </if>
+      <if test="ready != null" >
+        #{ready,jdbcType=VARCHAR},
+      </if>
+      <if test="ifgo != null" >
+        #{ifgo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hfxt.model.Gameroom" >
+    update gameroom
+    <set >
+      <if test="roomid != null" >
+        roomid = #{roomid,jdbcType=INTEGER},
+      </if>
+      <if test="roompeople != null" >
+        roompeople = #{roompeople,jdbcType=VARCHAR},
+      </if>
+      <if test="chat != null" >
+        chat = #{chat,jdbcType=VARCHAR},
+      </if>
+      <if test="story != null" >
+        story = #{story,jdbcType=VARCHAR},
+      </if>
+      <if test="people1 != null" >
+        people1 = #{people1,jdbcType=VARCHAR},
+      </if>
+      <if test="people2 != null" >
+        people2 = #{people2,jdbcType=VARCHAR},
+      </if>
+      <if test="people3 != null" >
+        people3 = #{people3,jdbcType=VARCHAR},
+      </if>
+      <if test="people4 != null" >
+        people4 = #{people4,jdbcType=VARCHAR},
+      </if>
+      <if test="people5 != null" >
+        people5 = #{people5,jdbcType=VARCHAR},
+      </if>
+      <if test="people6 != null" >
+        people6 = #{people6,jdbcType=VARCHAR},
+      </if>
+      <if test="ready != null" >
+        ready = #{ready,jdbcType=VARCHAR},
+      </if>
+      <if test="ifgo != null" >
+        ifgo = #{ifgo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hfxt.model.Gameroom" >
+    update gameroom
+    set roomid = #{roomid,jdbcType=INTEGER},
+      roompeople = #{roompeople,jdbcType=VARCHAR},
+      chat = #{chat,jdbcType=VARCHAR},
+      story = #{story,jdbcType=VARCHAR},
+      people1 = #{people1,jdbcType=VARCHAR},
+      people2 = #{people2,jdbcType=VARCHAR},
+      people3 = #{people3,jdbcType=VARCHAR},
+      people4 = #{people4,jdbcType=VARCHAR},
+      people5 = #{people5,jdbcType=VARCHAR},
+      people6 = #{people6,jdbcType=VARCHAR},
+      ready = #{ready,jdbcType=VARCHAR},
+      ifgo = #{ifgo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
